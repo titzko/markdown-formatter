@@ -1,5 +1,5 @@
-const markupInitialString = 
-`
+const markupInitialString =
+    `
 1. Wake up
    - Check the time first
    - If it's past 7 then wake up 
@@ -12,7 +12,8 @@ const markupInitialString =
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const showOutput = () => {
+    const showOutput = (e) => {
+        console.log(e.type);
         const markdownText = document.getElementById("markdown-content").innerText;
         document.getElementById('html-output').innerHTML =
             marked.parse(markdownText);
@@ -23,7 +24,13 @@ document.addEventListener('DOMContentLoaded', () => {
         showOutput();
     }
 
-    document.getElementById('markdown-content').addEventListener('input', showOutput);
-    CodeMirror(document.getElementById('markdown-content'), {mode: 'markdown',}).setSize("100%", 610);
+    const markdownContent = document.getElementById('markdown-content');
+
+    ['input', 'change', 'paste', 'cut', 'delete', 'blur', 'keydown', 'mouseleave'].forEach((e) => {
+        markdownContent.addEventListener(e, showOutput);
+    });
+
+
+    CodeMirror(document.getElementById('markdown-content'), { mode: 'markdown', }).setSize("100%", 610);
     initPage();
 });
