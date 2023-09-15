@@ -13,7 +13,6 @@ const markupInitialString =
 document.addEventListener('DOMContentLoaded', () => {
 
     const showOutput = (e) => {
-        console.log(e.type);
         const markdownText = document.getElementById("markdown-content").innerText;
         document.getElementById('html-output').innerHTML =
             marked.parse(markdownText);
